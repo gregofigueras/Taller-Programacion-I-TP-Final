@@ -3,6 +3,8 @@ package test;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -96,5 +98,20 @@ public class TestEmpresaGetterYSetters {
 		empresa.setViajesTerminados(this.viajesTerminados);
 		Assert.assertEquals("Error en setViajesTerminados", this.viajesTerminados, this.empresa.getViajesTerminados());
 	}
+	
+	@After
+	public void tearDown() {
+		this.empresa.getChoferes().clear();
+		this.empresa.getChoferesDesocupados().clear();
+		this.empresa.getClientes().clear();
+		this.empresa.getPedidos().clear();
+		this.empresa.setUsuarioLogeado(null);
+		this.empresa.getVehiculos().clear();
+		this.empresa.getVehiculosDesocupados().clear();
+		this.empresa.getViajesIniciados().clear();
+		this.empresa.getViajesTerminados().clear();
+		
+	}
+
 
 }

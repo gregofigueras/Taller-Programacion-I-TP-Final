@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.HashMap;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,11 +46,33 @@ public class TestEmpresaAgregar {
 			e.printStackTrace();
 		}
 	}
+	@Test
+	public void testAgregarChoferExcepcion() {
+		try {
+			empresa.agregarChofer(this.chofer);
+			empresa.agregarChofer(this.chofer);
+			fail("No se lanzo la excepcion ChoferRepetidoException");
+		} catch (ChoferRepetidoException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	@Test
 	public void testAgregarCliente() {
 		try {
 			empresa.agregarCliente("grego","1234","Gregorio Figueras");
+		} catch (UsuarioYaExisteException e) {
+			e.printStackTrace();
+		}
+		Assert.assertEquals("Agregar Cliente no funciona correctamente", this.clientes, this.empresa.getClientes());
+	}
+	
+	@Test
+	public void testAgregarClienteExcepcion() {
+		try {
+			empresa.agregarCliente("grego","1234","Gregorio Figueras");
+			empresa.agregarCliente("grego","1234","Gregorio Figueras");
+			fail("No se lanzo la excepcion UsuarioYaExisteException");
 		} catch (UsuarioYaExisteException e) {
 			e.printStackTrace();
 		}
@@ -66,6 +89,27 @@ public class TestEmpresaAgregar {
 		Assert.assertEquals("Agregar Vehiculo no funciona correctamente", this.vehiculos,
 				this.empresa.getVehiculos());
 	}
+	
+	@Test
+	public void testAgregarVehiculoExcepcion() {
+		try {
+			empresa.agregarVehiculo(this.auto);
+			empresa.agregarVehiculo(this.auto);
+			fail("No se lanzo la excepcion VehiculoRepetidoException");
+		} catch (VehiculoRepetidoException e) {
+			e.printStackTrace();
+		}
+		Assert.assertEquals("Agregar Vehiculo no funciona correctamente", this.vehiculos,
+				this.empresa.getVehiculos());
+	}
+	
+	@After
+	public void tearDown() {
+		this.empresa.getChoferes().clear();
+		this.empresa.getVehiculos().clear();
+		this.empresa.getClientes().clear();
+	}
+
 	
 
 }
