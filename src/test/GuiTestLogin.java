@@ -1,11 +1,13 @@
 package test;
 
 import controlador.Controlador;
+import util.Mensajes;
 
 import java.awt.AWTException;
 import java.awt.Component;
 import java.awt.Robot;
 import vista.Ventana;
+import vista.IOptionPane;
 import vista.IVista;
 
 import javax.swing.JButton;
@@ -17,12 +19,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class GuiTestEnabledDisabled {
+public class GuiTestLogin {
     Robot robot;
     Controlador controlador;
     IVista vista = new Ventana();
     
-    public GuiTestEnabledDisabled()
+    public GuiTestLogin()
     {
         try
         {
@@ -91,5 +93,31 @@ public class GuiTestEnabledDisabled {
         //verifico los resultados
         Assert.assertTrue("El boton de login deberia estar hablitado", loginButton.isEnabled());
     }
+    @Test
+    public void testLogUsuarioIncorrecto()
+    {
+        robot.delay(TestUtils.getDelay());
 
+        JTextField password = (JTextField) TestUtils.getComponentForName((Component) vista, "PASSWORD");
+        JTextField nombreUsuario = (JTextField) TestUtils.getComponentForName((Component) vista, "NOMBRE_USUARIO");
+        JButton loginButton = (JButton) TestUtils.getComponentForName((Component) vista, "LOGIN");
+        
+        TestUtils.clickComponent(nombreUsuario, robot);
+        TestUtils.tipeaTexto("hrgsgdrg", robot);
+        TestUtils.clickComponent(password, robot);
+        TestUtils.tipeaTexto("kjiykjhih", robot);
+        TestUtils.clickComponent(loginButton, robot);
+        
+        robot.delay(TestUtils.getDelay());
+        
+        String esperado = "Usuario inexistente";
+        boolean mensajeEmergente = TestUtils.esperarMensajeEmergente(esperado);
+        robot.delay(TestUtils.getDelay());
+
+        // Asserción para verificar si el mensaje emergente es correcto
+        Assert.assertTrue("Se esperaba el mensaje Usuario inexistente", mensajeEmergente);
+
+        
+        
+    }
 }

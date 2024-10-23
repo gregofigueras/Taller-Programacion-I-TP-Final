@@ -2,11 +2,15 @@ package test;
 
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Frame;
 import java.awt.Point;
 import java.awt.Robot;
+import java.awt.Window;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 /**
@@ -133,4 +137,27 @@ public class TestUtils
             }
         }
     }
+    public static boolean esperarMensajeEmergente(String mensajeEsperado) {
+        // Busca ventanas emergentes (JOptionPane)
+        for (Frame frame : Frame.getFrames()) {
+            for (Window window : frame.getOwnedWindows()) {
+                if (window instanceof JDialog) {
+                    JDialog dialog = (JDialog) window;
+                    if (dialog.isVisible()) {
+                        Component[] components = dialog.getContentPane().getComponents();
+                        for (Component component : components) {
+                            if (component instanceof JLabel) {
+                                JLabel label = (JLabel) component;
+                                if (label.getText().contains(mensajeEsperado)) {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }
+
