@@ -22,21 +22,25 @@ public class TestControlador {
 	private Controlador controlador = null;
 	private IVista vista = null;
 	private Empresa empresa = null;
+	private IPersistencia persistencia = null;
+	private String filename = "empresa.bin";
 	@Before
 	public void setUp() throws Exception {
 		this.controlador = new Controlador();
 		this.vista = new Ventana();
 		this.empresa = Empresa.getInstance();
+		this.persistencia = new PersistenciaBIN();
+		
 	}
 /*
 	@Test
 	public void TestactionPerformed() {
 		ActionEvent e = new ActionEvent(this,ActionEvent.ACTION_PERFORMED,Constantes.CERRAR_SESION_ADMIN);
 		controlador.actionPerformed(e);
-		Assert.assertEquals("Hubo un error al cerrar sesion como admin",empresa.);
+		Assert.assertEquals("Hubo un error al cerrar sesion como admin",);
 
 	}
-*/	
+*/
 	
 	@Test
 	public void TestVista() {
@@ -46,14 +50,12 @@ public class TestControlador {
 
 	@Test 
 	public void TestPersistencia() {
-		IPersistencia persistencia = new PersistenciaBIN();
 		controlador.setPersistencia(persistencia);
 		Assert.assertEquals("Hubo un fallo en la persistencia",persistencia,controlador.getPersistencia());
 	}
 	
 	@Test 
 	public void TestFileName() {
-		String filename = "NombreArchivo";
 		controlador.setFileName(filename);
 		Assert.assertEquals("Hubo un error con el filename",filename,controlador.getFileName());
 	}
