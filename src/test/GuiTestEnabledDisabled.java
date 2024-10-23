@@ -9,6 +9,7 @@ import vista.Ventana;
 import vista.IVista;
 
 import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.junit.After;
@@ -34,6 +35,11 @@ public class GuiTestEnabledDisabled {
     public void setUp() throws Exception
     {
         controlador = new Controlador();
+    }
+    @After
+    public void tearDown() throws Exception {
+        controlador = null;
+        robot = null;
     }
     @Test
     public void testVacios()
@@ -85,4 +91,5 @@ public class GuiTestEnabledDisabled {
         //verifico los resultados
         Assert.assertTrue("El boton de login deberia estar hablitado", loginButton.isEnabled());
     }
+
 }
