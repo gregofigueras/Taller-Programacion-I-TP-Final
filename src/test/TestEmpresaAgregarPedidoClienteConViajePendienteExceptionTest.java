@@ -18,13 +18,13 @@ import modeloDatos.Pedido;
 import modeloNegocio.Empresa;
 import util.Constantes;
 
-public class TestEmpresaAgregarPedidoClienteNoExisteException {
+public class TestEmpresaAgregarPedidoClienteConViajePendienteExceptionTest {
 	private Cliente cliente=null;
 	private Empresa empresa=null;
 	private Chofer chofer=null;
 	private Auto auto=null;
 	private Pedido pedido=null;
-	
+	private Pedido pedido2=null;
 
 	@Before
 	public void setUp() throws Exception {
@@ -34,8 +34,11 @@ public class TestEmpresaAgregarPedidoClienteNoExisteException {
 		this.empresa.agregarCliente("grego","1234","Gregorio Figueras");
 		this.cliente= new Cliente("grego","1234","Gregorio Figueras");
 		this.pedido= new Pedido(this.cliente,4,true,true,10,Constantes.ZONA_STANDARD);
+		this.pedido2= new Pedido(this.cliente,4,true,true,10,Constantes.ZONA_STANDARD);
 		this.empresa.agregarChofer(this.chofer);
 		this.empresa.agregarVehiculo(this.auto);
+		this.empresa.agregarPedido(this.pedido);
+		this.empresa.crearViaje(this.pedido, this.chofer, this.auto);
 	}
 
 	@After
@@ -47,10 +50,10 @@ public class TestEmpresaAgregarPedidoClienteNoExisteException {
 	}
 
 	@Test
-	public void testAgregarPedidoClienteNoExisteException() {
+	public void testAgregarPedidoCLienteConViajePendienteExcepction() {
 		try {
-			empresa.agregarPedido(this.pedido);
-			fail("Deberia haber lanzado ClienteNoExisteException");
+			empresa.agregarPedido(this.pedido2);
+			fail("Deberia haber lanzado ClienteConViajePendienteExcepction");
 		} catch (SinVehiculoParaPedidoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
