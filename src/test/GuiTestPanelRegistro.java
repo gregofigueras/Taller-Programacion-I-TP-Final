@@ -151,9 +151,6 @@ public class GuiTestPanelRegistro {
         JButton loginButton = (JButton) TestUtils.getComponentForName((Component) controlador.getVista(), "LOGIN");
         Assert.assertFalse("Deberíamos regresar al panel de Login después del registro exitoso", loginButton.isEnabled());
         }
- 
-  
-    
     @Test
     public void testRgNomreYaExiste() {
         JButton registrarButton = (JButton) TestUtils.getComponentForName((Component) vista, "REG_BUTTON_REGISTRAR");
@@ -195,6 +192,38 @@ public class GuiTestPanelRegistro {
         robot.delay(TestUtils.getDelay());
         Assert.assertEquals("Deberia decir: "+Mensajes.USUARIO_REPETIDO.getValor(),Mensajes.USUARIO_REPETIDO.getValor(), op.getMensaje());
         }
-    
-
+    @Test
+    public void testContrasenaNoCoincide() {
+    	JButton registrarButton = (JButton) TestUtils.getComponentForName((Component) vista, "REG_BUTTON_REGISTRAR");
+        JTextField nombreUsuario = (JTextField) TestUtils.getComponentForName((Component) vista, "REG_USSER_NAME");
+        JTextField password = (JTextField) TestUtils.getComponentForName((Component) vista, "REG_PASSWORD");
+        JTextField repetirPassword = (JTextField) TestUtils.getComponentForName((Component) vista, "REG_CONFIRM_PASSWORD");
+        JTextField nombreReal = (JTextField) TestUtils.getComponentForName((Component) vista, "REG_REAL_NAME");
+        
+        
+        TestUtils.clickComponent(nombreUsuario, robot);
+        TestUtils.tipeaTexto("nuevoUsuario", robot);
+        TestUtils.clickComponent(password, robot);
+        TestUtils.tipeaTexto("password1", robot);
+        TestUtils.clickComponent(repetirPassword, robot);
+        TestUtils.tipeaTexto("password2", robot); 
+        TestUtils.clickComponent(nombreReal, robot);
+        TestUtils.tipeaTexto("Nombre Real", robot);
+        
+        TestUtils.clickComponent(registrarButton, robot);
+        robot.delay(TestUtils.getDelay());
+        
+        Assert.assertEquals("El mensaje deberia decir: "+Mensajes.PASS_NO_COINCIDE.getValor(),Mensajes.PASS_NO_COINCIDE.getValor(),op.getMensaje());
+    	
+    }
+    @Test
+    public void testCancelarFunciona() {
+    	JButton cancelarButton = (JButton) TestUtils.getComponentForName((Component) vista, "REG_BUTTON_CANCELAR");
+    	TestUtils.clickComponent(cancelarButton, robot);
+    	
+    	robot.delay(TestUtils.getDelay());
+        JButton loginButton = (JButton) TestUtils.getComponentForName((Component) controlador.getVista(), "LOGIN");
+        Assert.assertFalse("Deberíamos regresar al panel de Login después de cancelar", loginButton.isEnabled());
+    	
+    }
 }
