@@ -39,7 +39,6 @@ public class GuiTestPanelRegistro {
         controlador = new Controlador();        
         vista=controlador.getVista();
         vista.setOptionPane(op); 
-        
         // Transición al panel de registro desde la vista de login
         JButton botonRegistrar = (JButton) TestUtils.getComponentForName((Component) vista, "REGISTRAR");
         TestUtils.clickComponent(botonRegistrar, robot);  
