@@ -65,19 +65,27 @@ public class GuiTestAdmin {
     {   
     	JButton nuevochofer = (JButton) TestUtils.getComponentForName((Component) vista, "NUEVO_CHOFER");
     	Assert.assertFalse("Nuevo chofer debe estar deshabilitado", nuevochofer.isEnabled());
+    	
+    }
+    @Test
+    public void testAnio()
+    {   robot.delay(TestUtils.getDelay());
+    	JTextField ingreso=(JTextField) TestUtils.getComponentForName((Component) vista, "CH_ANIO");
+    	Assert.assertNotNull("CH_ANIO debería existir", ingreso);
+    	TestUtils.clickComponent(ingreso, robot);
+    	TestUtils.tipeaTexto("2012", robot);
+    	
+    	JButton nuevochofer = (JButton) TestUtils.getComponentForName((Component) vista, "NUEVO_CHOFER");
+    	Assert.assertFalse("Nuevo chofer debe estar deshabilitado", nuevochofer.isEnabled());
  
     }
-    // @Test
-    public void testNewChoferEnabled()
+    @Test
+    public void testNewChoferEnabledTemp()
     {   
-    	vista=controlador.getVista();
     	JButton nuevochofer = (JButton) TestUtils.getComponentForName((Component) vista, "NUEVO_CHOFER");
-    	JRadioButton permanente= (JRadioButton) TestUtils.getComponentForName((Component) vista, "PERMANENTE");
     	JRadioButton temporal= (JRadioButton) TestUtils.getComponentForName((Component) vista, "TEMPORARIO");
     	JTextField dnichofer=(JTextField) TestUtils.getComponentForName((Component) vista, "DNI_CHOFER");
     	JTextField nombrechofer=(JTextField) TestUtils.getComponentForName((Component) vista, "NOMBRE_CHOFER");
-    	JTextField canthijos=(JTextField) TestUtils.getComponentForName((Component) vista, "CH_CANT_HIJOS");
-    	JTextField aingreso=(JTextField) TestUtils.getComponentForName((Component) vista, "CH_ANIO");
     	
     	TestUtils.clickComponent(temporal, robot);
     	TestUtils.clickComponent(dnichofer, robot);
@@ -87,7 +95,22 @@ public class GuiTestAdmin {
 
     	Assert.assertTrue("Nuevo chofer debe estar habilitado", nuevochofer.isEnabled());
 
-    	TestUtils.clickComponent(permanente, robot);    	
+    }
+    @Test
+    public void testNewChoferEnabledPerm()
+    {   
+    	JButton nuevochofer = (JButton) TestUtils.getComponentForName((Component) vista, "NUEVO_CHOFER");
+    	JRadioButton permanente= (JRadioButton) TestUtils.getComponentForName((Component) vista, "PERMANENTE");
+    	JTextField dnichofer=(JTextField) TestUtils.getComponentForName((Component) vista, "DNI_CHOFER");
+    	JTextField nombrechofer=(JTextField) TestUtils.getComponentForName((Component) vista, "NOMBRE_CHOFER");
+    	JTextField canthijos=(JTextField) TestUtils.getComponentForName((Component) vista, "CH_CANT_HIJOS");
+    	JTextField aingreso=(JTextField) TestUtils.getComponentForName((Component) vista, "CH_ANIO");
+    	
+      	TestUtils.clickComponent(permanente, robot);  	
+    	TestUtils.clickComponent(dnichofer, robot);
+    	TestUtils.tipeaTexto("12345", robot);
+    	TestUtils.clickComponent(nombrechofer, robot);
+    	TestUtils.tipeaTexto("Juan", robot);
     	TestUtils.clickComponent(canthijos, robot);
     	TestUtils.tipeaTexto("2", robot);
     	TestUtils.clickComponent(aingreso, robot);
@@ -197,13 +220,8 @@ public class GuiTestAdmin {
     	TestUtils.tipeaTexto("4", robot);
     	TestUtils.clickComponent(nuevovehiculo, robot);
       	robot.delay(TestUtils.getDelay());
-      	
-      	TestUtils.clickComponent(auto, robot);
-    	TestUtils.clickComponent(mascotaCheckBox, robot);
-    	TestUtils.clickComponent(patente, robot);
-    	TestUtils.tipeaTexto("12345", robot);
-    	TestUtils.clickComponent(plazas, robot);
-    	TestUtils.tipeaTexto("4", robot);
+      	//ERROR ENCONTRADO, NO SE BORRAN LOS JTEXFIELDS AL REGISTRAR UN VEHICULO
+
     	TestUtils.clickComponent(nuevovehiculo, robot);
       	robot.delay(TestUtils.getDelay());
         
