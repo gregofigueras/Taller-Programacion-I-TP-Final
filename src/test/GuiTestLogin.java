@@ -1,10 +1,7 @@
 package test;
 
 import controlador.Controlador;
-import gui.MiOptionPane;
 import util.Mensajes;
-import vista.IOptionPane;
-
 import java.awt.AWTException;
 import java.awt.Component;
 import java.awt.Robot;
@@ -85,7 +82,7 @@ public class GuiTestLogin {
     }
     
     @Test
-    public void testLogLleno()
+    public void testLogEnabled()
     {
         robot.delay(TestUtils.getDelay());
 
@@ -158,7 +155,65 @@ public class GuiTestLogin {
         
         Assert.assertEquals("Deberia decir: "+Mensajes.PASS_ERRONEO.getValor(),Mensajes.PASS_ERRONEO.getValor(),op.getMensaje());
     }
-    public void testLoginCliente() {
-    	
+    @Test
+    public void testLoginAdmin() {
+    	robot.delay(TestUtils.getDelay());
+
+        JTextField password = (JTextField) TestUtils.getComponentForName((Component) vista, "PASSWORD");
+        JTextField nombreUsuario = (JTextField) TestUtils.getComponentForName((Component) vista, "NOMBRE_USUARIO");
+        JButton loginButton = (JButton) TestUtils.getComponentForName((Component) vista, "LOGIN");
+
+        TestUtils.clickComponent(nombreUsuario, robot);
+        TestUtils.tipeaTexto("admin", robot);
+        TestUtils.clickComponent(password, robot);
+        TestUtils.tipeaTexto("admin", robot);
+        TestUtils.clickComponent(loginButton, robot);
+        
+        robot.delay(TestUtils.getDelay());
+        vista=controlador.getVista();
+        JButton nuevochofer = (JButton) TestUtils.getComponentForName((Component) vista, "NUEVO_CHOFER");
+        Assert.assertFalse("Nuevo chofer debe estar deshabilitado", nuevochofer.isEnabled());
+        
+    }
+    @Test
+    public void LoginCliente(){
+    	JButton botonRegistrar = (JButton) TestUtils.getComponentForName((Component) vista, "REGISTRAR");
+        TestUtils.clickComponent(botonRegistrar, robot);  
+        robot.delay(TestUtils.getDelay());
+        
+    	JButton registrarButton = (JButton) TestUtils.getComponentForName((Component) vista, "REG_BUTTON_REGISTRAR");
+        JTextField regnombreUsuario = (JTextField) TestUtils.getComponentForName((Component) vista, "REG_USSER_NAME");
+        JTextField regpassword = (JTextField) TestUtils.getComponentForName((Component) vista, "REG_PASSWORD");
+        JTextField repetirPassword = (JTextField) TestUtils.getComponentForName((Component) vista, "REG_CONFIRM_PASSWORD");
+        JTextField nombreReal = (JTextField) TestUtils.getComponentForName((Component) vista, "REG_REAL_NAME");
+        
+        
+        TestUtils.clickComponent(regnombreUsuario, robot);
+        TestUtils.tipeaTexto("nuevoUsuario", robot);
+        TestUtils.clickComponent(regpassword, robot);
+        TestUtils.tipeaTexto("password1", robot);
+        TestUtils.clickComponent(repetirPassword, robot);
+        TestUtils.tipeaTexto("password1", robot); 
+        TestUtils.clickComponent(nombreReal, robot);
+        TestUtils.tipeaTexto("Nombre Real", robot);
+
+        TestUtils.clickComponent(registrarButton, robot);
+        
+        robot.delay(TestUtils.getDelay());
+        
+        JTextField password = (JTextField) TestUtils.getComponentForName((Component) vista, "PASSWORD");
+        JTextField nombreUsuario = (JTextField) TestUtils.getComponentForName((Component) vista, "NOMBRE_USUARIO");
+        JButton loginButton = (JButton) TestUtils.getComponentForName((Component) vista, "LOGIN");
+
+        TestUtils.clickComponent(nombreUsuario, robot);
+        TestUtils.tipeaTexto("nuevoUsuario", robot);
+        TestUtils.clickComponent(password, robot);
+        TestUtils.tipeaTexto("password1", robot);
+        TestUtils.clickComponent(loginButton, robot);
+        
+        robot.delay(TestUtils.getDelay());
+        vista=controlador.getVista();
+        JButton nuevopedido = (JButton) TestUtils.getComponentForName((Component) vista, "NUEVO_PEDIDO");
+        Assert.assertFalse("Nuevo pedido debe estar deshabilitado", nuevopedido.isEnabled());
     }
 }

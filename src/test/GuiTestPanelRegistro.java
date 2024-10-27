@@ -1,17 +1,14 @@
 package test;
 
 import controlador.Controlador;
-import gui.MiOptionPane;
 import util.Mensajes;
 import vista.Ventana;
-import vista.IOptionPane;
 import vista.IVista;
 
 import java.awt.AWTException;
 import java.awt.Component;
 import java.awt.Robot;
 import javax.swing.JButton;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.junit.After;
