@@ -47,25 +47,97 @@ public class TestUtilPersistencia {
 	}
 
 	@Test
-    public void testEmpresaDtoFromEmpresaCheckClientes() {
+    public void testEmpresaDtoFromEmpresaCheckUsuarioClientes() {
 		HashMap<String, Cliente> clientesObtenidos =  Empresa.getInstance().getClientes();
 		Cliente clienteObtenido = clientesObtenidos.get("Aguskpo");
-        Assert.assertEquals("Los clientes no se copiaron correctamente", this.clienteEsperado.getNombreUsuario(), clienteObtenido.getNombreUsuario());
-    }
-
-	@Test
-    public void testEmpresaDtoFromEmpresaCheckChoferes() {
-		HashMap<String, Chofer> choferesObtenidos = Empresa.getInstance().getChoferes();
-		Chofer choferObtenido = choferesObtenidos.get("43509237");
-		Assert.assertEquals("Los choferes no se copiaron correctamente", this.choferEsperado.getDni(), choferObtenido.getDni());
+        Assert.assertEquals("Los usuarios de los clientes no se copiaron correctamente", this.clienteEsperado.getNombreUsuario(), clienteObtenido.getNombreUsuario());
     }
 	
 	@Test
-    public void testEmpresaDtoFromEmpresaCheckPedidos() {
+    public void testEmpresaDtoFromEmpresaCheckNombreClientes() {
+		HashMap<String, Cliente> clientesObtenidos =  Empresa.getInstance().getClientes();
+		Cliente clienteObtenido = clientesObtenidos.get("Aguskpo");
+        Assert.assertEquals("Los nombres de los clientes no se copiaron correctamente", this.clienteEsperado.getNombreReal(), clienteObtenido.getNombreReal());
+    }
+	
+	@Test
+    public void testEmpresaDtoFromEmpresaCheckPasswordClientes() {
+		HashMap<String, Cliente> clientesObtenidos =  Empresa.getInstance().getClientes();
+		Cliente clienteObtenido = clientesObtenidos.get("Aguskpo");
+        Assert.assertEquals("Las contraseñas de los clientes no se copiaron correctamente", this.clienteEsperado.getPass(), clienteObtenido.getPass());
+    }
+
+	@Test
+    public void testEmpresaDtoFromEmpresaCheckDniChoferes() {
+		HashMap<String, Chofer> choferesObtenidos = Empresa.getInstance().getChoferes();
+		Chofer choferObtenido = choferesObtenidos.get("43509237");
+		Assert.assertEquals("Los DNI de los choferes no se copiaron correctamente", this.choferEsperado.getDni(), choferObtenido.getDni());
+    }
+	
+	@Test
+    public void testEmpresaDtoFromEmpresaCheckNombreChoferes() {
+		HashMap<String, Chofer> choferesObtenidos = Empresa.getInstance().getChoferes();
+		Chofer choferObtenido = choferesObtenidos.get("43509237");
+		Assert.assertEquals("Los nombres de los choferes no se copiaron correctamente", this.choferEsperado.getNombre(), choferObtenido.getNombre());
+    }
+	
+	@Test
+    public void testEmpresaDtoFromEmpresaCheckSueldoBrutoChoferes() {
+		HashMap<String, Chofer> choferesObtenidos = Empresa.getInstance().getChoferes();
+		Chofer choferObtenido = choferesObtenidos.get("43509237");
+		Assert.assertEquals("Los sueldos brutos de los choferes no se copiaron correctamente", this.choferEsperado.getSueldoBruto(), choferObtenido.getSueldoBruto());
+    }
+	
+	@Test
+    public void testEmpresaDtoFromEmpresaCheckSueldoNetoChoferes() {
+		HashMap<String, Chofer> choferesObtenidos = Empresa.getInstance().getChoferes();
+		Chofer choferObtenido = choferesObtenidos.get("43509237");
+		Assert.assertEquals("Los sueldos netos de los choferes no se copiaron correctamente", this.choferEsperado.getSueldoNeto(), choferObtenido.getSueldoNeto());
+    }
+		
+	@Test
+    public void testEmpresaDtoFromEmpresaCheckCantPasPedidos() {
 		HashMap<Cliente, Pedido> pedidosObtenidos = Empresa.getInstance().getPedidos();
 		Pedido pedidoObtenido = pedidosObtenidos.get(clienteEsperado);
-		Assert.assertEquals("Los pedidos no se copiaron correctamente", this.pedidoEsperado.getCantidadPasajeros(), pedidoObtenido.getCantidadPasajeros());
+		Assert.assertEquals("Las cantidades de pasajeros de los pedidos no se copiaron correctamente", this.pedidoEsperado.getCantidadPasajeros(), pedidoObtenido.getCantidadPasajeros());
     }
+	
+	@Test
+    public void testEmpresaDtoFromEmpresaCheckKmPedidos() {
+		HashMap<Cliente, Pedido> pedidosObtenidos = Empresa.getInstance().getPedidos();
+		Pedido pedidoObtenido = pedidosObtenidos.get(clienteEsperado);
+		Assert.assertEquals("Los kilometos de los pedidos no se copiaron correctamente", this.pedidoEsperado.getKm(), pedidoObtenido.getKm());
+    }
+	
+	@Test
+    public void testEmpresaDtoFromEmpresaCheckClientePedidos() {
+		HashMap<Cliente, Pedido> pedidosObtenidos = Empresa.getInstance().getPedidos();
+		Pedido pedidoObtenido = pedidosObtenidos.get(clienteEsperado);
+		Assert.assertEquals("Los clientes de los pedidos no se copiaron correctamente", this.pedidoEsperado.getCliente().getNombreUsuario(), pedidoObtenido.getCliente().getNombreUsuario());
+    }
+	
+	@Test
+    public void testEmpresaDtoFromEmpresaCheckZonaPedidos() {
+		HashMap<Cliente, Pedido> pedidosObtenidos = Empresa.getInstance().getPedidos();
+		Pedido pedidoObtenido = pedidosObtenidos.get(clienteEsperado);
+		Assert.assertEquals("Las zonas de los pedidos no se copiaron correctamente", this.pedidoEsperado.getZona(), pedidoObtenido.getZona());
+    }
+	
+	@Test
+    public void testEmpresaDtoFromEmpresaCheckBaulPedidos() {
+		HashMap<Cliente, Pedido> pedidosObtenidos = Empresa.getInstance().getPedidos();
+		Pedido pedidoObtenido = pedidosObtenidos.get(clienteEsperado);
+		Assert.assertEquals("Los baules de los pedidos no se copiaron correctamente", this.pedidoEsperado.isBaul(), pedidoObtenido.isBaul());
+    }
+	
+	@Test
+    public void testEmpresaDtoFromEmpresaCheckMascotaPedidos() {
+		HashMap<Cliente, Pedido> pedidosObtenidos = Empresa.getInstance().getPedidos();
+		Pedido pedidoObtenido = pedidosObtenidos.get(clienteEsperado);
+		Assert.assertEquals("Las mascotas de los pedidos no se copiaron correctamente", this.pedidoEsperado.isMascota(), pedidoObtenido.isMascota());
+    }
+	
+	
 	
 	//FALTA CHOFERES DESOCUPADOS, USUARIO LOGEADO, VEHICULOS,VEHICULOS DESOCUPADOS, VIAJES INICIADOS Y TERMINADOS
 }
