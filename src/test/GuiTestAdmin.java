@@ -2,6 +2,7 @@ package test;
 
 import controlador.Controlador;
 import modeloDatos.Vehiculo;
+import modeloDatos.Viaje;
 import modeloDatos.Chofer;
 import modeloDatos.Cliente;
 import util.Constantes;
@@ -453,5 +454,211 @@ public class GuiTestAdmin {
             Assert.assertEquals("El elemento en la posición " + i + " no coincide con el esperado.", clientesEsperados[i], model.getElementAt(i).getNombreUsuario());
         }
     }
+    @Test
+    public void testVehiculosListaContent() {
+    	JButton nuevovehiculo = (JButton) TestUtils.getComponentForName((Component) vista, "NUEVO_VEHICULO");
+    	JRadioButton auto=(JRadioButton) TestUtils.getComponentForName((Component) vista, "AUTO");
+    	JTextField patente= (JTextField) TestUtils.getComponentForName((Component) vista, "PATENTE");
+    	JTextField plazas= (JTextField) TestUtils.getComponentForName((Component) vista, "CANTIDAD_PLAZAS");
+    	JCheckBox mascotaCheckBox = (JCheckBox) TestUtils.getComponentForName((Component) vista, "CHECK_VEHICULO_ACEPTA_MASCOTA"); 
+    	
+    	TestUtils.clickComponent(auto, robot);
+    	TestUtils.clickComponent(mascotaCheckBox, robot);
+    	TestUtils.clickComponent(patente, robot);
+    	TestUtils.tipeaTexto("12345", robot);
+    	TestUtils.clickComponent(plazas, robot);
+    	TestUtils.tipeaTexto("4", robot);
+    	TestUtils.clickComponent(nuevovehiculo, robot);
+      	robot.delay(TestUtils.getDelay());
+      	//No se borran los datos dsp de registrar un vehiculo
+      	
+    	TestUtils.clickComponent(patente, robot);
+    	TestUtils.tipeaTexto("1", robot);
+    	TestUtils.clickComponent(nuevovehiculo, robot);
+      	robot.delay(TestUtils.getDelay());
 
+      	JList<Vehiculo> vehiculos=(JList<Vehiculo>) TestUtils.getComponentForName((Component) vista, "LISTA_VEHICULOS_TOTALES");
+
+        Assert.assertNotNull("La lista de clientes debería existir en la vista.", vehiculos);
+        
+
+        String[] patEsperadas = { "123451", "12345" };
+        
+
+        ListModel<Vehiculo> model = vehiculos.getModel();
+        
+        Assert.assertEquals("El tamaño de la lista de vehículos no coincide con el esperado.", patEsperadas.length, model.getSize());
+        
+
+        for (int i = 0; i < patEsperadas.length; i++) {
+            Assert.assertEquals("El elemento en la posición " + i + " no coincide con el esperado.", patEsperadas[i], model.getElementAt(i).getPatente());
+        }
+      	
+    }
+    @Test
+    public void testSueldosTextField() {
+    	//creo un chofer, para que haya sueldos que mostrar
+    	JButton nuevochofer = (JButton) TestUtils.getComponentForName((Component) vista, "NUEVO_CHOFER");
+    	JRadioButton permanente= (JRadioButton) TestUtils.getComponentForName((Component) vista, "PERMANENTE");
+    	JTextField dnichofer=(JTextField) TestUtils.getComponentForName((Component) vista, "DNI_CHOFER");
+    	JTextField nombrechofer=(JTextField) TestUtils.getComponentForName((Component) vista, "NOMBRE_CHOFER");
+    	JTextField canthijos=(JTextField) TestUtils.getComponentForName((Component) vista, "CH_CANT_HIJOS");
+    	JTextField aingreso=(JTextField) TestUtils.getComponentForName((Component) vista, Constantes.CH_ANIO);
+    	
+      	TestUtils.clickComponent(permanente, robot);  	
+    	TestUtils.clickComponent(dnichofer, robot);
+    	TestUtils.tipeaTexto("12345", robot);
+    	TestUtils.clickComponent(nombrechofer, robot);
+    	TestUtils.tipeaTexto("Juan", robot);
+    	TestUtils.clickComponent(canthijos, robot);
+    	TestUtils.tipeaTexto("2", robot);
+    	TestUtils.clickComponent(aingreso, robot);
+    	TestUtils.tipeaTexto("2012", robot);
+    	TestUtils.clickComponent(nuevochofer, robot);
+    	robot.delay(TestUtils.getDelay());
+    	
+    	JTextField sueldos=(JTextField) TestUtils.getComponentForName((Component) vista, "TOTAL_SUELDOS_A_PAGAR");
+    	String sueldos_mostrados=sueldos.getText();
+    	Assert.assertNotNull("Deberia mostrar el sueldo del chofer registrado", sueldos_mostrados);
+    }
+    @Test
+    public void testViajesHistoricosLista() {
+    	JButton nuevovehiculo = (JButton) TestUtils.getComponentForName((Component) vista, "NUEVO_VEHICULO");
+    	JRadioButton auto=(JRadioButton) TestUtils.getComponentForName((Component) vista, "AUTO");
+    	JTextField patente= (JTextField) TestUtils.getComponentForName((Component) vista, "PATENTE");
+    	JTextField plazas= (JTextField) TestUtils.getComponentForName((Component) vista, "CANTIDAD_PLAZAS");
+    	JCheckBox mascotaCheckBox = (JCheckBox) TestUtils.getComponentForName((Component) vista, "CHECK_VEHICULO_ACEPTA_MASCOTA"); 
+    	JList<Viaje> viajes=(JList<Viaje>) TestUtils.getComponentForName((Component) vista, "LISTA_VIAJES_HISTORICOS");
+    	
+    	TestUtils.clickComponent(auto, robot);
+    	TestUtils.clickComponent(mascotaCheckBox, robot);
+    	TestUtils.clickComponent(patente, robot);
+    	TestUtils.tipeaTexto("12345", robot);
+    	TestUtils.clickComponent(plazas, robot);
+    	TestUtils.tipeaTexto("4", robot);
+    	TestUtils.clickComponent(nuevovehiculo, robot);
+      	robot.delay(TestUtils.getDelay());
+      	
+        JButton nuevochofer = (JButton) TestUtils.getComponentForName((Component) vista, "NUEVO_CHOFER");
+    	JRadioButton permanente= (JRadioButton) TestUtils.getComponentForName((Component) vista, "PERMANENTE");
+    	JTextField dnichofer=(JTextField) TestUtils.getComponentForName((Component) vista, "DNI_CHOFER");
+    	JTextField nombrechofer=(JTextField) TestUtils.getComponentForName((Component) vista, "NOMBRE_CHOFER");
+    	JTextField canthijos=(JTextField) TestUtils.getComponentForName((Component) vista, "CH_CANT_HIJOS");
+    	JTextField aingreso=(JTextField) TestUtils.getComponentForName((Component) vista, Constantes.CH_ANIO);
+    	
+      	TestUtils.clickComponent(permanente, robot);  	
+    	TestUtils.clickComponent(dnichofer, robot);
+    	TestUtils.tipeaTexto("12345", robot);
+    	TestUtils.clickComponent(nombrechofer, robot);
+    	TestUtils.tipeaTexto("Juan", robot);
+    	TestUtils.clickComponent(canthijos, robot);
+    	TestUtils.tipeaTexto("2", robot);
+    	TestUtils.clickComponent(aingreso, robot);
+    	TestUtils.tipeaTexto("2012", robot);
+    	TestUtils.clickComponent(nuevochofer, robot);
+    	robot.delay(TestUtils.getDelay());
+      	
+      	JButton cerrarsesionadmin = (JButton) TestUtils.getComponentForName((Component) vista, "CERRAR_SESION_ADMIN");
+      	TestUtils.clickComponent(cerrarsesionadmin, robot);
+      	
+      	JButton botonRegistrar = (JButton) TestUtils.getComponentForName((Component) vista, "REGISTRAR");
+        TestUtils.clickComponent(botonRegistrar, robot);  
+        robot.delay(TestUtils.getDelay());
+        
+    	JButton registrarButton = (JButton) TestUtils.getComponentForName((Component) vista, "REG_BUTTON_REGISTRAR");
+        JTextField regnombreUsuario = (JTextField) TestUtils.getComponentForName((Component) vista, "REG_USSER_NAME");
+        JTextField regpassword = (JTextField) TestUtils.getComponentForName((Component) vista, "REG_PASSWORD");
+        JTextField repetirPassword = (JTextField) TestUtils.getComponentForName((Component) vista, "REG_CONFIRM_PASSWORD");
+        JTextField nombreReal = (JTextField) TestUtils.getComponentForName((Component) vista, "REG_REAL_NAME");
+        
+        
+        TestUtils.clickComponent(regnombreUsuario, robot);
+        TestUtils.tipeaTexto("nuevoUsuario", robot);
+        TestUtils.clickComponent(regpassword, robot);
+        TestUtils.tipeaTexto("password1", robot);
+        TestUtils.clickComponent(repetirPassword, robot);
+        TestUtils.tipeaTexto("password1", robot); 
+        TestUtils.clickComponent(nombreReal, robot);
+        TestUtils.tipeaTexto("Nombre Real", robot);
+
+        TestUtils.clickComponent(registrarButton, robot);
+        
+        robot.delay(TestUtils.getDelay());
+        
+        JTextField password = (JTextField) TestUtils.getComponentForName((Component) vista, "PASSWORD");
+        JTextField nombreUsuario = (JTextField) TestUtils.getComponentForName((Component) vista, "NOMBRE_USUARIO");
+        JButton loginButton = (JButton) TestUtils.getComponentForName((Component) vista, "LOGIN");
+
+        TestUtils.clickComponent(nombreUsuario, robot);
+        TestUtils.tipeaTexto("nuevoUsuario", robot);
+        TestUtils.clickComponent(password, robot);
+        TestUtils.tipeaTexto("password1", robot);
+        TestUtils.clickComponent(loginButton, robot);
+        robot.delay(TestUtils.getDelay());
+        
+        JTextField cant_pas = (JTextField) TestUtils.getComponentForName((Component) vista, "CANT_PAX");
+        JTextField km = (JTextField) TestUtils.getComponentForName((Component) vista, "CANT_KM");
+        JButton nuevopedido = (JButton) TestUtils.getComponentForName((Component) vista, "NUEVO_PEDIDO");
+        JButton cerrarsesioncliente = (JButton) TestUtils.getComponentForName((Component) vista, "CERRAR_SESION_CLIENTE");
+        
+        TestUtils.clickComponent(cant_pas, robot);
+        TestUtils.tipeaTexto("3", robot);
+        TestUtils.clickComponent(km, robot);
+        TestUtils.tipeaTexto("14", robot);
+        TestUtils.clickComponent(nuevopedido, robot);
+        TestUtils.clickComponent(cerrarsesioncliente, robot);
+        robot.delay(TestUtils.getDelay());
+        
+        TestUtils.clickComponent(nombreUsuario, robot);
+        TestUtils.tipeaTexto("admin", robot);
+        TestUtils.clickComponent(password, robot);
+        TestUtils.tipeaTexto("admin", robot);
+        TestUtils.clickComponent(loginButton, robot);
+        
+    	
+    	JList<Viaje> pedidosdisp=(JList<Viaje>) TestUtils.getComponentForName((Component) vista, "LISTA_PEDIDOS_PENDIENTES");
+    	JList<Viaje> chofereslib=(JList<Viaje>) TestUtils.getComponentForName((Component) vista, "LISTA_CHOFERES_LIBRES");
+    	JList<Viaje> vehiculosdisp=(JList<Viaje>) TestUtils.getComponentForName((Component) vista, "LISTA_VEHICULOS_DISPONIBLES");
+ 
+    	pedidosdisp.setSelectedIndex(0);
+    	chofereslib.setSelectedIndex(0);
+    	vehiculosdisp.setSelectedIndex(0);
+    	TestUtils.clickComponent(pedidosdisp, robot);
+    	TestUtils.clickComponent(chofereslib, robot);
+    	TestUtils.clickComponent(vehiculosdisp, robot);
+        JButton nuevoviaje = (JButton) TestUtils.getComponentForName((Component) vista, "NUEVO_VIAJE");
+        TestUtils.clickComponent(nuevoviaje, robot);
+    	
+      	TestUtils.clickComponent(cerrarsesionadmin, robot);
+        robot.delay(TestUtils.getDelay());    
+        
+        TestUtils.clickComponent(nombreUsuario, robot);
+        TestUtils.tipeaTexto("nuevoUsuario", robot);
+        TestUtils.clickComponent(password, robot);
+        TestUtils.tipeaTexto("password1", robot);
+        TestUtils.clickComponent(loginButton, robot);
+        robot.delay(TestUtils.getDelay());
+        
+        JTextField calificacion=(JTextField) TestUtils.getComponentForName((Component) vista, Constantes.CALIFICACION_DE_VIAJE);
+        JButton pagar = (JButton) TestUtils.getComponentForName((Component) vista, "CALIFICAR_PAGAR");
+        Assert.assertNotNull("Se deberia poder pagar", pagar);
+        Assert.assertNotNull("Se deberia poder calificar", calificacion);
+        TestUtils.clickComponent(calificacion, robot);
+        TestUtils.tipeaTexto("5", robot);
+        TestUtils.clickComponent(pagar, robot);
+        TestUtils.clickComponent(cerrarsesioncliente, robot);
+        
+        TestUtils.clickComponent(nombreUsuario, robot);
+        TestUtils.tipeaTexto("admin", robot);
+        TestUtils.clickComponent(password, robot);
+        TestUtils.tipeaTexto("admin", robot);
+        TestUtils.clickComponent(loginButton, robot);
+        
+        
+        ListModel<Viaje> model = viajes.getModel();
+        
+        Assert.assertEquals("El tamaño de la lista de viajes no coincide con el esperado.", 1, model.getSize());
+       
+        
+    }
 }
