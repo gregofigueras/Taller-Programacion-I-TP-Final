@@ -381,7 +381,7 @@ public class GuiTestAdmin {
     	Assert.assertEquals("Deberia decir: "+Mensajes.CHOFER_YA_REGISTRADO.getValor(),Mensajes.CHOFER_YA_REGISTRADO.getValor(),op.getMensaje());
     }
     @Test
-    public void testVehiculosListaContent() {
+    public void testClientesListaContent() {
     	JButton cerrarsesion = (JButton) TestUtils.getComponentForName((Component) vista, "CERRAR_SESION_ADMIN");
     	TestUtils.clickComponent(cerrarsesion, robot);
      	robot.delay(TestUtils.getDelay());
