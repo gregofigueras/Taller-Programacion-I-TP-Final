@@ -33,7 +33,7 @@ public class TestEmpresaDTO {
 	public void testSetGetClientes() {	//CONSULTAR SI ES CORRECTA LA FORMA DE BUSQUEDA
 		Cliente clienteEsperado = new Cliente("Aguskpo","Aguskpo123","Agustin Gonzales");
 		HashMap<String, Cliente> mapa = new HashMap<>();
-		mapa.put(clienteEsperado.getNombreUsuario(),clienteEsperado);	//asumo que el indice del hashmap es el nombre de usuario
+		mapa.put(clienteEsperado.getNombreUsuario(),clienteEsperado);
 		this.empresaDTO.setClientes(mapa);
 		Cliente clienteObtenido = mapa.get("Aguskpo");
 		Assert.assertEquals("El cliente obtenido no coincide con el esperado", clienteEsperado, clienteObtenido);
