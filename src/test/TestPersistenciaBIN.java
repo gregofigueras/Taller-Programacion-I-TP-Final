@@ -27,7 +27,7 @@ public class TestPersistenciaBIN {
             archivo.abrirInput("ArchivoInexistente.txt");
             Assert.fail("Se esperaba una IOException al intentar abrir un archivo inexistente en abrir input");
         } catch (IOException e) {
-            Assert.assertTrue("Lanzo excepcion  incorrecta al abrir input por un archivo inexistente", e instanceof IOException);
+            Assert.assertTrue("Lanzo IOEexception al intentar abrir input por un archivo inexistente", e instanceof IOException);
         }
     }
 	
@@ -37,7 +37,7 @@ public class TestPersistenciaBIN {
             archivo.abrirInput("ArchivoInexistente.txt");
             Assert.fail("Se esperaba una IOException al intentar abrir un archivo inexistente en Abrir Output");
         } catch (IOException e) {
-            Assert.assertTrue("Lanzo excepción  incorrecta al  abrir output por un archivo inexistente", e instanceof IOException);
+            Assert.assertTrue("Lanzo IOEexception al  abrir output por un archivo inexistente", e instanceof IOException);
         }
     }
 	
@@ -47,7 +47,7 @@ public class TestPersistenciaBIN {
 			archivo.cerrarOutput();
 			 Assert.fail("Se esperaba una IOException al intentar cerrar un archivo que nunca se abrio en Cerrar Output");
 		}catch (IOException e){
-			Assert.assertTrue("Lanzo excepción incorrecta al cerrar output con un archivo que no fue abierto", e instanceof IOException);
+			Assert.assertTrue("Lanzo IOEexception al cerrar output con un archivo que no fue abierto", e instanceof IOException);
 		}
 	}
 	
@@ -57,7 +57,7 @@ public class TestPersistenciaBIN {
 			archivo.cerrarInput();
 			Assert.fail("Se esperaba una IOException al intentar cerrar un archivo que nunca se abrio en cerrar Input");
 		}catch (IOException e){
-			Assert.assertTrue("Lanzo excepción incorrecta al cerrar Input con un archivo que no fue abierto", e instanceof IOException);
+			Assert.assertTrue("Lanzo IOEexception al cerrar Input con un archivo que no fue abierto", e instanceof IOException);
 		}
 	}
 	
@@ -68,7 +68,7 @@ public class TestPersistenciaBIN {
 			archivo.escribir(moto);
 			Assert.fail("Se esperaba una IOException al intentar escribir un archivo que nunca se abrio");
 		}catch(IOException e) {
-			Assert.assertTrue("Lanzo excepción incorrecta al escribir con un archivo que no fue abierto", e instanceof IOException);
+			Assert.assertTrue("Lanzo IOEexception  al escribir con un archivo que no fue abierto", e instanceof IOException);
 		}
 	}
 	
@@ -78,9 +78,9 @@ public class TestPersistenciaBIN {
 			Serializable objeto = archivo.leer();
 			Assert.fail("Se esperaba una IOException al intentar leer un archivo que nunca se abrio");
 		}catch (ClassNotFoundException e) {
-            Assert.fail("No se esperaba ClassNotFoundException en este caso");
+            Assert.fail("Error, lanza ClassNotFoundException cuando deberia lanzar IOException");
         }catch(IOException e) {
-			Assert.assertTrue("Lanzo excepción incorrecta al leer con un archivo que no fue abierto", e instanceof IOException);
+			Assert.assertTrue("Lanzo IOEexception al leer con un archivo que no fue abierto", e instanceof IOException);
 		}
 	}
 	
@@ -89,10 +89,10 @@ public class TestPersistenciaBIN {
 			archivo.abrirInput("archivoExistente.txt");
 			Serializable objeto = archivo.leer();
 			Assert.fail("Se esperaba una ClassNotFoundException al intentar leer una clase desconocida");
-		} catch (ClassNotFoundException e) {
-            Assert.assertTrue("Se esperaba una ClassNotFoundException", e instanceof ClassNotFoundException);
-        } catch (IOException e) {
-            Assert.fail("No se esperaba IOException en este caso");
+		} catch (IOException e) {
+            Assert.fail("Error, lanza IOException cuando deberia lanzar ClassNotFoundException");
+        } catch (ClassNotFoundException e) {
+            Assert.assertTrue("Lanza una ClassNotFoundException de manera correcta al leer en input", e instanceof ClassNotFoundException);
         }
 	}
 	
