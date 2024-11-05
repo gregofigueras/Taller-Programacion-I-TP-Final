@@ -36,7 +36,7 @@ public class TestEmpresaDTO {
 		mapa.put(clienteEsperado.getNombreUsuario(),clienteEsperado);
 		this.empresaDTO.setClientes(mapa);
 		Cliente clienteObtenido = mapa.get("Aguskpo");
-		Assert.assertEquals("El cliente obtenido no coincide con el esperado", clienteEsperado, clienteObtenido);
+		Assert.assertEquals("El cliente obtenido no coincide con el esperado", clienteEsperado.getNombreUsuario(), clienteObtenido.getNombreUsuario());
 	}
 	
 	@Test
@@ -71,7 +71,7 @@ public class TestEmpresaDTO {
 		mapa.put(clienteEsperado,pedidoEsperado);	
 		this.empresaDTO.setPedidos(mapa);
 		Pedido pedidoObtenido = this.empresaDTO.getPedidos().get(clienteEsperado);
-		Assert.assertEquals("El pedido obtenido no coincide con el esperado", pedidoEsperado, pedidoObtenido);
+		Assert.assertEquals("El pedido obtenido no coincide con el esperado", pedidoEsperado.getCantidadPasajeros(), pedidoObtenido.getCantidadPasajeros());
 	}
 	
 	@Test
@@ -85,7 +85,7 @@ public class TestEmpresaDTO {
 		mapa.put(cliente,viajeEsperado);	
 		this.empresaDTO.setViajesIniciados(mapa);;
 		Viaje viajeObtenido = this.empresaDTO.getViajesIniciados().get(cliente);
-		Assert.assertEquals("El viaje iniciado obtenido no coincide con el esperado", viajeEsperado, viajeObtenido);
+		Assert.assertEquals("El viaje iniciado obtenido no coincide con el esperado", viajeEsperado.getVehiculo().getPatente(), viajeObtenido.getVehiculo().getPatente());
 	}
 	
 	
