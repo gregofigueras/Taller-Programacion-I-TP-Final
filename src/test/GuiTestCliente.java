@@ -114,8 +114,8 @@ public class GuiTestCliente {
     	Assert.assertTrue("El boton de cerrar sesion deberia estar habilitado", cerrarsesion.isEnabled());
     	//chequeo que vuelva a la pantalla de inicio
     	TestUtils.clickComponent(cerrarsesion, robot);
-    	JButton botonRegistrar = (JButton) TestUtils.getComponentForName((Component) vista, "REGISTRAR");
-    	Assert.assertTrue("Deberia volver a la pantalla de inicio", botonRegistrar.isEnabled());
+    	JPanel panellogin = (JPanel) TestUtils.getComponentForName((Component) vista, Constantes.PANEL_LOGIN);
+        Assert.assertTrue("El panel de logueo debería estar visible", panellogin.isVisible());
     	
     }
     @Test

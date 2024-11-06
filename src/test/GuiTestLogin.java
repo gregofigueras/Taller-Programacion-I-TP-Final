@@ -1,6 +1,7 @@
 package test;
 
 import controlador.Controlador;
+import util.Constantes;
 import util.Mensajes;
 import java.awt.AWTException;
 import java.awt.Component;
@@ -9,6 +10,7 @@ import vista.Ventana;
 import vista.IVista;
 
 import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.junit.After;
@@ -171,12 +173,12 @@ public class GuiTestLogin {
         
         robot.delay(TestUtils.getDelay());
         vista=controlador.getVista();
-        JButton nuevochofer = (JButton) TestUtils.getComponentForName((Component) vista, "NUEVO_CHOFER");
-        Assert.assertFalse("Nuevo chofer debe estar deshabilitado", nuevochofer.isEnabled());
+        JPanel paneladmin = (JPanel) TestUtils.getComponentForName((Component) vista, Constantes.PANEL_ADMINISTRADOR);
+        Assert.assertTrue("El panel de administrador debería estar visible", paneladmin.isVisible());
         
     }
     @Test
-    public void LoginCliente(){
+    public void testLoginCliente(){
     	JButton botonRegistrar = (JButton) TestUtils.getComponentForName((Component) vista, "REGISTRAR");
         TestUtils.clickComponent(botonRegistrar, robot);  
         robot.delay(TestUtils.getDelay());
@@ -213,7 +215,7 @@ public class GuiTestLogin {
         
         robot.delay(TestUtils.getDelay());
         vista=controlador.getVista();
-        JButton nuevopedido = (JButton) TestUtils.getComponentForName((Component) vista, "NUEVO_PEDIDO");
-        Assert.assertFalse("Nuevo pedido debe estar deshabilitado", nuevopedido.isEnabled());
+        JPanel panelcliente = (JPanel) TestUtils.getComponentForName((Component) vista, Constantes.PANEL_CLIENTE);
+        Assert.assertTrue("El panel de cliente debería estar visible", panelcliente.isVisible());
     }
 }

@@ -1,6 +1,7 @@
 package test;
 
 import controlador.Controlador;
+import util.Constantes;
 import util.Mensajes;
 import vista.Ventana;
 import vista.IVista;
@@ -9,6 +10,7 @@ import java.awt.AWTException;
 import java.awt.Component;
 import java.awt.Robot;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.junit.After;
@@ -144,8 +146,8 @@ public class GuiTestPanelRegistro {
         TestUtils.clickComponent(registrarButton, robot);
         
         robot.delay(TestUtils.getDelay());
-        JButton loginButton = (JButton) TestUtils.getComponentForName((Component) controlador.getVista(), "LOGIN");
-        Assert.assertFalse("Deberíamos regresar al panel de Login después del registro exitoso", loginButton.isEnabled());
+        JPanel panellogin = (JPanel) TestUtils.getComponentForName((Component) vista, Constantes.PANEL_LOGIN);
+        Assert.assertTrue("El panel de logueo debería estar visible", panellogin.isVisible());
         }
     @Test
     public void testRgNomreYaExiste() {
@@ -218,8 +220,8 @@ public class GuiTestPanelRegistro {
     	TestUtils.clickComponent(cancelarButton, robot);
     	
     	robot.delay(TestUtils.getDelay());
-        JButton loginButton = (JButton) TestUtils.getComponentForName((Component) controlador.getVista(), "LOGIN");
-        Assert.assertFalse("Deberíamos regresar al panel de Login después de cancelar", loginButton.isEnabled());
+    	JPanel panellogin = (JPanel) TestUtils.getComponentForName((Component) vista, Constantes.PANEL_LOGIN);
+        Assert.assertTrue("El panel de logueo debería estar visible", panellogin.isVisible());
     	
     }
 }
