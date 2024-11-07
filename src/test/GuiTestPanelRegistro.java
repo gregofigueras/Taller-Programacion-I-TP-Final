@@ -147,7 +147,7 @@ public class GuiTestPanelRegistro {
         
         robot.delay(TestUtils.getDelay());
         JPanel panellogin = (JPanel) TestUtils.getComponentForName((Component) vista, Constantes.PANEL_LOGIN);
-        Assert.assertTrue("El panel de logueo debería estar visible", panellogin.isVisible());
+        Assert.assertTrue("El panel de logueo debería estar visible", panellogin.isShowing());
         }
     @Test
     public void testRgNomreYaExiste() {
@@ -216,12 +216,15 @@ public class GuiTestPanelRegistro {
     }
     @Test
     public void testCancelarFunciona() {
-    	JButton cancelarButton = (JButton) TestUtils.getComponentForName((Component) vista, "REG_BUTTON_CANCELAR");
+    	JButton cancelarButton = (JButton) TestUtils.getComponentForName((Component) vista, "REG_BUTTON_CANCELAR");	
+    	JPanel panelreg = (JPanel) TestUtils.getComponentForName((Component) vista, Constantes.PANEL_REGISTRO);
     	TestUtils.clickComponent(cancelarButton, robot);
     	
     	robot.delay(TestUtils.getDelay());
     	JPanel panellogin = (JPanel) TestUtils.getComponentForName((Component) vista, Constantes.PANEL_LOGIN);
-        Assert.assertTrue("El panel de logueo debería estar visible", panellogin.isVisible());
+    
+        Assert.assertTrue("El panel de logueo debería estar visible", panellogin.isShowing());
+        Assert.assertFalse("El panel de reg no debería estar visible", panelreg.isShowing());
     	
     }
 }

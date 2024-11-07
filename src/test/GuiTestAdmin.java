@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.ListModel;
 import javax.swing.JCheckBox;
 import javax.swing.JList;
+import javax.swing.JPanel;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -659,6 +660,18 @@ public class GuiTestAdmin {
         
         Assert.assertEquals("El tamaño de la lista de viajes no coincide con el esperado.", 1, model.getSize());    
     }
+    @Test
+    public void testCerrarSesion() {
+    	JButton cerrarsesionadmin=(JButton) TestUtils.getComponentForName((Component) vista, Constantes.CERRAR_SESION_ADMIN);
+    	//chequea que este habilitado
+    	Assert.assertTrue("El boton de cerrar sesion deberia estar habilitado", cerrarsesionadmin.isEnabled());
+    	//chequeo que vuelva a la pantalla de inicio
+    	TestUtils.clickComponent(cerrarsesionadmin, robot);
+    	JPanel panellogin = (JPanel) TestUtils.getComponentForName((Component) vista, Constantes.PANEL_LOGIN);
+        Assert.assertTrue("El panel de logueo debería estar visible", panellogin.isShowing());
+    	
+    }
+    
     @Test
     public void testListasInicialmenteVacias() {
         JList<?> listaPedidosPend = (JList<?>) TestUtils.getComponentForName((Component) vista, "LISTA_PEDIDOS_PENDIENTES");

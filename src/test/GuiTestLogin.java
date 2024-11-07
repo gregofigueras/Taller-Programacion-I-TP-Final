@@ -174,7 +174,7 @@ public class GuiTestLogin {
         robot.delay(TestUtils.getDelay());
         vista=controlador.getVista();
         JPanel paneladmin = (JPanel) TestUtils.getComponentForName((Component) vista, Constantes.PANEL_ADMINISTRADOR);
-        Assert.assertTrue("El panel de administrador debería estar visible", paneladmin.isVisible());
+        Assert.assertTrue("El panel de administrador debería estar visible", paneladmin.isShowing());
         
     }
     @Test
@@ -216,6 +216,6 @@ public class GuiTestLogin {
         robot.delay(TestUtils.getDelay());
         vista=controlador.getVista();
         JPanel panelcliente = (JPanel) TestUtils.getComponentForName((Component) vista, Constantes.PANEL_CLIENTE);
-        Assert.assertTrue("El panel de cliente debería estar visible", panelcliente.isVisible());
+        Assert.assertTrue("El panel de cliente debería estar visible", panelcliente.isShowing());
     }
 }

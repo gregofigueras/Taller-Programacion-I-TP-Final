@@ -115,7 +115,7 @@ public class GuiTestCliente {
     	//chequeo que vuelva a la pantalla de inicio
     	TestUtils.clickComponent(cerrarsesion, robot);
     	JPanel panellogin = (JPanel) TestUtils.getComponentForName((Component) vista, Constantes.PANEL_LOGIN);
-        Assert.assertTrue("El panel de logueo debería estar visible", panellogin.isVisible());
+        Assert.assertTrue("El panel de logueo debería estar visible", panellogin.isShowing());
     	
     }
     @Test
