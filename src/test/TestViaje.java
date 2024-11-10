@@ -1,17 +1,19 @@
 package test;
 
-import static org.junit.Assert.*;
+
 import modeloDatos.Viaje;
+import modeloNegocio.Empresa;
 import modeloDatos.Pedido;
 import modeloDatos.Cliente;
 import modeloDatos.ChoferTemporario;
 import modeloDatos.Auto;
-import util.Constantes; 
+import util.Constantes;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import junit.framework.Assert;
+
 
 public class TestViaje {
 private Viaje viaje = null;
@@ -19,15 +21,24 @@ private Pedido pedido = null;
 private Cliente cliente = null;
 private ChoferTemporario chofer = null;
 private Auto auto=null;
+private Empresa empresa = null;
+private Object incremento;
 
 	@Before
 	public void setUp() throws Exception {
+		this.empresa = Empresa.getInstance();
 		this.cliente = new Cliente("Aguskpo","Aguskpo123","Agustin Gonzales");
-		this.pedido = new Pedido(cliente,2,true,false,10,util.Constantes.ZONA_PELIGROSA);
+		this.empresa.agregarCliente("Aguskpo","Aguskpo123","Agustin Gonzales");
+		this.pedido = new Pedido(this.empresa.getClientes().get("Aguskpo"),2,true,true,10,util.Constantes.ZONA_PELIGROSA);
 		this.chofer = new ChoferTemporario("43509237","Gregorio");
 		this.auto= new Auto("ABC123", 4, true);
 		this.viaje = new Viaje(this.pedido,this.chofer,this.auto);
 		this.viaje.setValorBase(500);
+
+		this.empresa.agregarChofer(this.chofer);
+		this.empresa.agregarVehiculo(this.auto);
+		this.empresa.agregarPedido(this.pedido);
+		
 	}
 
 	@Test
@@ -53,21 +64,23 @@ private Auto auto=null;
 	}
 	
 	@Test
-	public void testgetValor() {
-		Assert.assertEquals("Valor incoherente en zona peligrosa",16800.0,this.viaje.getValor());
-		this.pedido = new Pedido(cliente,2,true,false,10,util.Constantes.ZONA_STANDARD);
-		Assert.assertEquals("Valor incoherente en zona estandar",9360.0,this.viaje.getValor());
-		this.pedido = new Pedido(cliente,2,true,false,10,util.Constantes.ZONA_SIN_ASFALTAR);
-		Assert.assertEquals("Valor incoherente en zona sin asfaltar",10530.0,this.viaje.getValor());
-		this.pedido = new Pedido(cliente,2,false,false,10,util.Constantes.ZONA_STANDARD);
-		Assert.assertEquals("Valor incoherente sin mascota",7260.0,this.viaje.getValor());
-		this.pedido = new Pedido(cliente,2,true,false,10,util.Constantes.ZONA_STANDARD);
-		Assert.assertEquals("Valor incoherente con mascota",9360.0,this.viaje.getValor());
-		this.pedido = new Pedido(cliente,2,true,false,10,util.Constantes.ZONA_STANDARD);
-		Assert.assertEquals("Valor incoherente sin baul",9360.0,this.viaje.getValor());
-		this.pedido = new Pedido(cliente,2,true,true,10,util.Constantes.ZONA_STANDARD);
-		Assert.assertEquals("Valor incoherente con baul",17550.0,this.viaje.getValor());
+	public void testgetValorZonaPeligrosaConMascotaConBaul() {
+		
+		Assert.assertEquals("Valor de Zona peligrosa con mascota y sin baul mal calculado",18850.0,this.viaje.getValor(), 0.01);
 	}
+	
+	@Test
+	public void testgetValorZonaStandardSinMascotaConBaul() {		
+		this.pedido = new Pedido(this.cliente,2,false,true,10,util.Constantes.ZONA_STANDARD);
+		Assert.assertEquals("Valor de Zona standard sin mascota y con baul mal calculado",13800.0,this.viaje.getValor());
+	}
+	
+	@Test
+	public void testgetValorZonaSinAsfaltarSinMascotaSinBaul() {
+		this.pedido = new Pedido(this.cliente,2,false,false,10,util.Constantes.ZONA_SIN_ASFALTAR);
+		Assert.assertEquals("Valor de Zona sin asfaltar sin mascota y sin baul mal calculado",13800.0,this.viaje.getValor());
+	}
+		
 	
 	@Test
 	public void testValorBase() {
