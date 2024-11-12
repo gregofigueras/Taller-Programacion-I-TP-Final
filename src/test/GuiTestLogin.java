@@ -53,12 +53,6 @@ public class GuiTestLogin {
         Assert.assertFalse("El boton de login deberia estar deshablitado", loginButton.isEnabled());
         Assert.assertTrue("El boton de registro deberia estar habilitado",register.isEnabled());
     }
-    @Test
-    public void testRegisterEnabled() {
-        JButton registrarButton = (JButton) TestUtils.getComponentForName((Component) controlador.getVista(), "REGISTRAR");
-        Assert.assertTrue("El boton de registro deberia estar habilitado",registrarButton.isEnabled());
-
-    }
     
     @Test 
     public void testLogSoloNombre() {

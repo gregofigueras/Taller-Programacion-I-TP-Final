@@ -116,7 +116,7 @@ public class GuiTestAdmin {
     @Test
     public void testNewVehiculoDisabled() {
     	JButton nuevovehiculo = (JButton) TestUtils.getComponentForName((Component) vista, "NUEVO_VEHICULO");
-    	Assert.assertFalse("Nuevo chofer debe estar deshabilitado", nuevovehiculo.isEnabled());
+    	Assert.assertFalse("Nuevo vehiculo debe estar deshabilitado", nuevovehiculo.isEnabled());
     }
     @Test
     public void testNewVehiculoEnabledMoto() {
@@ -127,7 +127,7 @@ public class GuiTestAdmin {
     	TestUtils.clickComponent(moto, robot);
     	TestUtils.clickComponent(patente, robot);
     	TestUtils.tipeaTexto("12345", robot);
-    	Assert.assertTrue("Nuevo chofer debe estar habilitado para moto", nuevovehiculo.isEnabled());
+    	Assert.assertTrue("Nuevo vehiculo debe estar habilitado para moto", nuevovehiculo.isEnabled());
     	
     }
     @Test
@@ -145,7 +145,7 @@ public class GuiTestAdmin {
     	TestUtils.clickComponent(plazas, robot);
     	TestUtils.tipeaTexto("4", robot);
     	 robot.delay(TestUtils.getDelay()); 
-    	Assert.assertTrue("Nuevo chofer debe estar habilitado para auto", nuevovehiculo.isEnabled());
+    	Assert.assertTrue("Nuevo vehiculo debe estar habilitado para auto", nuevovehiculo.isEnabled());
     }
     @Test
     public void testNewVehiculoEnabledCombi() {
@@ -162,7 +162,7 @@ public class GuiTestAdmin {
     	TestUtils.clickComponent(plazas, robot);
     	TestUtils.tipeaTexto("5", robot);
     	 robot.delay(TestUtils.getDelay()); 
-    	Assert.assertTrue("Nuevo chofer debe estar habilitado para combi", nuevovehiculo.isEnabled());
+    	Assert.assertTrue("Nuevo vehiculo debe estar habilitado para combi", nuevovehiculo.isEnabled());
     	
     }
     @Test
